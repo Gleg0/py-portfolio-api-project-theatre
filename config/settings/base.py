@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     "drf_spectacular_sidecar",
     "theatre",
     "user",
+    "decouple",
 ]
 
 MIDDLEWARE = [
