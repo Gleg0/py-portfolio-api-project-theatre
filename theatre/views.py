@@ -10,6 +10,10 @@ from serializers import (
 )
 from permissions import IsAdminOrReadOnly
 
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+from filters import PerformanceFilter, PlayFilter
+
 
 class ActorViewSet(viewsets.ModelViewSet):
     queryset = Actor.objects.all()
@@ -28,6 +32,12 @@ class PlayViewSet(viewsets.ModelViewSet):
     serializer_class = PlaySerializer
     permission_classes = [IsAdminOrReadOnly]
 
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_class = PlayFilter
+    search_fields = ["title", "description", "actors__last_name"]
+    ordering_fields = ["title"]
+    ordering = ["title"]
+
 
 class TheatreHallViewSet(viewsets.ModelViewSet):
     queryset = TheatreHall.objects.all()
@@ -39,6 +49,12 @@ class PerformanceViewSet(viewsets.ModelViewSet):
     queryset = Performance.objects.all()
     serializer_class = PerformanceSerializer
     permission_classes = [IsAdminOrReadOnly]
+
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_class = PerformanceFilter
+    search_fields = ["play__title", "play__description", "play__actors__last_name"]
+    ordering_fields = ["show_time", "play__title"]
+    ordering = ["show_time"]
 
 
 class TicketViewSet(viewsets.ReadOnlyModelViewSet):
