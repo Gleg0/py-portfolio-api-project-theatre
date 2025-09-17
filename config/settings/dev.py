@@ -1,4 +1,4 @@
-from .base import *
+from config.settings.base import *  # noqa: F403,F405
 from decouple import config
 
 DEBUG = config("DEBUG", default=True, cast=bool)
@@ -6,10 +6,10 @@ SECRET_KEY = config("SECRET_KEY", default="dev-secret")
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
     default="127.0.0.1,localhost",
-    cast=lambda v: [s.strip() for s in v.split(",")]
+    cast=lambda v: [s.strip() for s in v.split(",")],
 )
 
-INSTALLED_APPS += ["django_extensions"]
+INSTALLED_APPS += ["django_extensions"]  # noqa: F403,F405
 
 DATABASES = {
     "default": {

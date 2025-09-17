@@ -1,12 +1,22 @@
 from rest_framework import viewsets, permissions
 
 from theatre.models import (
-    Actor, Genre, Play, TheatreHall, Performance, Reservation, Ticket
+    Actor,
+    Genre,
+    Play,
+    TheatreHall,
+    Performance,
+    Reservation,
+    Ticket,
 )
 from theatre.serializers import (
-    ActorSerializer, GenreSerializer, PlaySerializer,
-    TheatreHallSerializer, PerformanceSerializer,
-    ReservationSerializer, TicketSerializer
+    ActorSerializer,
+    GenreSerializer,
+    PlaySerializer,
+    TheatreHallSerializer,
+    PerformanceSerializer,
+    ReservationSerializer,
+    TicketSerializer,
 )
 from theatre.permissions import IsAdminOrReadOnly
 
@@ -32,7 +42,11 @@ class PlayViewSet(viewsets.ModelViewSet):
     serializer_class = PlaySerializer
     permission_classes = [IsAdminOrReadOnly]
 
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
     filterset_class = PlayFilter
     search_fields = ["title", "description", "actors__last_name"]
     ordering_fields = ["title"]
@@ -50,9 +64,17 @@ class PerformanceViewSet(viewsets.ModelViewSet):
     serializer_class = PerformanceSerializer
     permission_classes = [IsAdminOrReadOnly]
 
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
     filterset_class = PerformanceFilter
-    search_fields = ["play__title", "play__description", "play__actors__last_name"]
+    search_fields = [
+        "play__title",
+        "play__description",
+        "play__actors__last_name",
+    ]
     ordering_fields = ["show_time", "play__title"]
     ordering = ["show_time"]
 
