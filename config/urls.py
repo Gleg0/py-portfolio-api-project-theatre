@@ -20,7 +20,7 @@ urlpatterns = [
     path("health/", health_check),
     path("admin/", admin.site.urls),
     path("api/theatre/", include("theatre.urls")),
-    path("api/user/", include("users.urls")),
+    path("api/user/", include("user.urls")),
     path(
         "api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"
     ),
