@@ -1,18 +1,18 @@
 from rest_framework import viewsets, permissions
 
-from models import (
+from theatre.models import (
     Actor, Genre, Play, TheatreHall, Performance, Reservation, Ticket
 )
-from serializers import (
+from theatre.serializers import (
     ActorSerializer, GenreSerializer, PlaySerializer,
     TheatreHallSerializer, PerformanceSerializer,
     ReservationSerializer, TicketSerializer
 )
-from permissions import IsAdminOrReadOnly
+from theatre.permissions import IsAdminOrReadOnly
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-from filters import PerformanceFilter, PlayFilter
+from theatre.filters import PerformanceFilter, PlayFilter
 
 
 class ActorViewSet(viewsets.ModelViewSet):

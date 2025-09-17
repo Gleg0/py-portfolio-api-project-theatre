@@ -12,6 +12,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "django_filters",
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
     "theatre",
     "user",
 ]
@@ -87,4 +89,29 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.AllowAny",
     ),
     "PAGE_SIZE": 10,
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "TEST_REQUEST_RENDERER_CLASSES": (
+        "rest_framework.renderers.JSONRenderer",
+    ),
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Theatre API",
+    "DESCRIPTION": "API for theatre.",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+
+    "AUTHENTICATION_WHITELIST": [],
+    "SWAGGER_UI_SETTINGS": {
+        "persistAuthorization": True,
+    },
+    "COMPONENT_SPLIT_REQUEST": True,
+    "SECURITY_DEFINITIONS": {
+        "BearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT",
+            "description": "Input JWT token in format: **Bearer &lt;your_token&gt;**",
+        },
+    },
 }

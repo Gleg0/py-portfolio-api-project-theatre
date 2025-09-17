@@ -1,5 +1,5 @@
 import django_filters
-from models import Performance, Play
+from theatre.models import Performance, Play
 
 
 class PerformanceFilter(django_filters.FilterSet):
