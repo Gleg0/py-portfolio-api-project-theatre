@@ -25,6 +25,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from theatre.filters import PerformanceFilter, PlayFilter
 
+
 @extend_schema(tags=["Actors"])
 class ActorViewSet(viewsets.ModelViewSet):
     """CRUD for actors"""
@@ -44,9 +45,15 @@ class GenreViewSet(viewsets.ModelViewSet):
 @extend_schema(
     tags=["Plays"],
     parameters=[
-        OpenApiParameter("title", str, description="Filter by play title"),
-        OpenApiParameter("description", str, description="Search by description"),
-        OpenApiParameter("actors__last_name", str, description="Search by actor last name"),
+        OpenApiParameter(
+            "title", str, description="Filter by play title"
+        ),
+        OpenApiParameter(
+            "description", str, description="Search by description"
+        ),
+        OpenApiParameter(
+            "actors__last_name", str, description="Search by actor last name"
+        ),
     ],
 )
 class PlayViewSet(viewsets.ModelViewSet):
@@ -77,13 +84,19 @@ class TheatreHallViewSet(viewsets.ModelViewSet):
 @extend_schema(
     tags=["Performances"],
     parameters=[
-        OpenApiParameter("play__title", str, description="Filter by play title"),
-        OpenApiParameter("show_time", str, description="Filter by show time"),
+        OpenApiParameter(
+            "play__title", str, description="Filter by play title"
+        ),
+        OpenApiParameter(
+            "show_time", str, description="Filter by show time"
+        ),
     ],
 )
 class PerformanceViewSet(viewsets.ModelViewSet):
     """CRUD for performances"""
-    queryset = Performance.objects.select_related("play", "theatre_hall").prefetch_related(
+    queryset = Performance.objects.select_related(
+        "play", "theatre_hall"
+    ).prefetch_related(
         "play__actors", "play__genres"
     )
     serializer_class = PerformanceSerializer
@@ -107,7 +120,9 @@ class PerformanceViewSet(viewsets.ModelViewSet):
 @extend_schema(tags=["Tickets"])
 class TicketViewSet(viewsets.ReadOnlyModelViewSet):
     """View for user tickets"""
-    queryset = Ticket.objects.select_related("performance", "reservation", "performance__play")
+    queryset = Ticket.objects.select_related(
+        "performance", "reservation", "performance__play"
+    )
     serializer_class = TicketSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -123,5 +138,8 @@ class ReservationViewSet(viewsets.ModelViewSet):
         return (
             Reservation.objects.filter(user=self.request.user)
             .select_related("user")
-            .prefetch_related("tickets__performance__play", "tickets__performance__theatre_hall")
+            .prefetch_related(
+                "tickets__performance__play",
+                "tickets__performance__theatre_hall"
+            )
         )
