@@ -19,7 +19,6 @@ services:
 
   app:
     build: .
-    command: /app/entrypoint.sh
     volumes:
       - media_data:/app/media
       - static_data:/app/static
