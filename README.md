@@ -40,3 +40,9 @@ Clone the repository:
 ```bash
 git clone https://github.com/Gleg0/py-portfolio-api-project-theatre.git
 cd py-portfolio-api-project-theatre
+```
+
+## 🛠 Run test:
+```bash
+pytest --ds=config.settings.test --cov=theatre --cov=user --cov-report=term-missing
+```
